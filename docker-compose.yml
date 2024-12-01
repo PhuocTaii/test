@@ -1,0 +1,17 @@
+services:
+  pawnshop:
+    image: ia_03:latest
+    container_name: ia_03_container
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    networks:
+      - inet
+
+networks:
+  inet:
+    name: inet
+    external: true

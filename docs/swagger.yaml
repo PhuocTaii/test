@@ -1,0 +1,132 @@
+basePath: /api
+definitions:
+  pawnshop-backend_application_domains_user_models.LoginReq:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    required:
+    - email
+    - password
+    type: object
+  pawnshop-backend_application_domains_user_models.RegisterReq:
+    properties:
+      confirm_password:
+        type: string
+      email:
+        type: string
+      full_name:
+        type: string
+      password:
+        minLength: 8
+        type: string
+    required:
+    - confirm_password
+    - email
+    - full_name
+    - password
+    type: object
+  pawnshop-backend_pkg_http_resp.ErrorResp:
+    properties:
+      message:
+        type: string
+      status_code:
+        type: integer
+    type: object
+  pawnshop-backend_pkg_http_resp.SuccessResp:
+    properties:
+      message:
+        type: string
+        x-order: "2"
+      metadata:
+        x-order: "3"
+      status_code:
+        type: integer
+        x-order: "1"
+    type: object
+host: localhost:5000
+info:
+  contact: {}
+  description: API system for Web Advanced IA-03
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://swagger.io/
+  title: Web Advanced IA-03 API
+  version: v0.0.1
+paths:
+  /users/login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate a user and return a token
+      parameters:
+      - description: Login request
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pawnshop-backend_application_domains_user_models.LoginReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Login success
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.SuccessResp'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp'
+      summary: Login a user
+      tags:
+      - UserService
+  /users/register:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account
+      parameters:
+      - description: Register request
+        in: body
+        name: req
+        required: true
+        schema:
+          $ref: '#/definitions/pawnshop-backend_application_domains_user_models.RegisterReq'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Register success
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.SuccessResp'
+        "400":
+          description: Invalid request
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp'
+      summary: Register a new user
+      tags:
+      - UserService
+securityDefinitions:
+  Accept-Language:
+    in: header
+    name: Accept-Language
+    type: apiKey
+  Jwt:
+    in: header
+    name: Authorization
+    type: apiKey
+  UID:
+    in: header
+    name: uid
+    type: apiKey
+swagger: "2.0"

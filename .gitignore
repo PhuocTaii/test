@@ -1,0 +1,6 @@
+.volumes
+.vscode
+.idea
+vendor
+env
+deploy.sh

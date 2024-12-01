@@ -1,0 +1,195 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "API system for Web Advanced IA-03",
+        "title": "Web Advanced IA-03 API",
+        "termsOfService": "https://swagger.io/",
+        "contact": {},
+        "license": {
+            "name": "Apache 2.0",
+            "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "v0.0.1"
+    },
+    "host": "localhost:5000",
+    "basePath": "/api",
+    "paths": {
+        "/users/login": {
+            "post": {
+                "description": "Authenticate a user and return a token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserService"
+                ],
+                "summary": "Login a user",
+                "parameters": [
+                    {
+                        "description": "Login request",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_application_domains_user_models.LoginReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Login success",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.SuccessResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/register": {
+            "post": {
+                "description": "Create a new user account",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "UserService"
+                ],
+                "summary": "Register a new user",
+                "parameters": [
+                    {
+                        "description": "Register request",
+                        "name": "req",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_application_domains_user_models.RegisterReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Register success",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.SuccessResp"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error",
+                        "schema": {
+                            "$ref": "#/definitions/pawnshop-backend_pkg_http_resp.ErrorResp"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "pawnshop-backend_application_domains_user_models.LoginReq": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "pawnshop-backend_application_domains_user_models.RegisterReq": {
+            "type": "object",
+            "required": [
+                "confirm_password",
+                "email",
+                "full_name",
+                "password"
+            ],
+            "properties": {
+                "confirm_password": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string",
+                    "minLength": 8
+                }
+            }
+        },
+        "pawnshop-backend_pkg_http_resp.ErrorResp": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                },
+                "status_code": {
+                    "type": "integer"
+                }
+            }
+        },
+        "pawnshop-backend_pkg_http_resp.SuccessResp": {
+            "type": "object",
+            "properties": {
+                "status_code": {
+                    "type": "integer",
+                    "x-order": "1"
+                },
+                "message": {
+                    "type": "string",
+                    "x-order": "2"
+                },
+                "metadata": {
+                    "x-order": "3"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "Accept-Language": {
+            "type": "apiKey",
+            "name": "Accept-Language",
+            "in": "header"
+        },
+        "Jwt": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        },
+        "UID": {
+            "type": "apiKey",
+            "name": "uid",
+            "in": "header"
+        }
+    }
+}
