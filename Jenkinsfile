@@ -28,7 +28,6 @@ pipeline {
                                 ia_03:latest
                         '''
 
-                        sh 'docker logs -f ia_03_container'
                     }
                 }
             }
